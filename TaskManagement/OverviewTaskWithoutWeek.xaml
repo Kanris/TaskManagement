@@ -1,0 +1,17 @@
+﻿<Window x:Class="TaskManagement.OverviewTaskWithoutWeek"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Обзор задач" Height="300" Width="500" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Style="{DynamicResource VS2012WindowStyle}" FontFamily="./Styles/#Roboto Condensed" Foreground="{DynamicResource Foreground}" MinWidth="500" MinHeight="350">
+    <Grid Background="#FF009688">
+        <Button Content="+" Name="btnAddTask" ToolTip="Добавить задачу" Click="btnAddTask_Click" Style="{DynamicResource AddButton}" Panel.ZIndex="1" Margin="0,0,23,23" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="35" Width="39" />
+        <DataGrid HorizontalAlignment="Stretch" MouseDoubleClick="dgOverview_MouseDoubleClick" RowHeight="40.0" VerticalAlignment="Stretch" Name="dgOverview" Margin="0,0,0,0" IsReadOnly="True" CanUserSortColumns="False" Grid.ColumnSpan="2" Style="{DynamicResource StandardDataGrid}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Path=Goal}" Header="Цели" Width="100" MinWidth="100" />
+                <DataGridTextColumn Binding="{Binding Path=Task}" Header="Задачи" Width="100" MinWidth="100" />
+                <DataGridTextColumn Binding="{Binding Path=taskID}" Header="ID" Width="100" Visibility="Collapsed" />
+                <DataGridTextColumn Binding="{Binding Path=Priority}" Header="Priority" Width="100" Visibility="Visible" />
+                <DataGridTextColumn Binding="{Binding Path=Time}" Header="Время" Width="170" MinWidth="100" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

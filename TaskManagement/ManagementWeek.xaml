@@ -1,0 +1,14 @@
+﻿<Window x:Class="TaskManagement.ManagementWeek"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Создать неделю" Height="150" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Style="{DynamicResource VS2012WindowStyle}" Foreground="{DynamicResource CloseButtonStroke}" FontFamily="./Styles/#Roboto Condensed" ShowInTaskbar="False">
+    <Grid Background="{DynamicResource BackgroundNormal}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="139*"/>
+            <ColumnDefinition Width="145*"/>
+        </Grid.ColumnDefinitions>
+        <DatePicker Name="dpWeek" HorizontalAlignment="Left" Margin="35,44,0,0" VerticalAlignment="Top" FirstDayOfWeek="Monday" SelectedDateChanged="DatePicker_SelectedDateChanged" Width="120" Grid.ColumnSpan="2"/>
+        <Button Name="btnCreateWeek" Content="Создать" Margin="27,44,10,34" Click="btnCreateWeek_Click" Style="{DynamicResource StandardButton}" Grid.Column="1"/>
+        <ComboBox Name="cbWeeks" HorizontalAlignment="Left" Margin="35,10,0,0" VerticalAlignment="Top" Width="120" Style="{DynamicResource StandardComboBox}" Grid.ColumnSpan="2"/>
+    </Grid>
+</Window>

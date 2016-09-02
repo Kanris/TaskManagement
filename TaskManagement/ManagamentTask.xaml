@@ -1,0 +1,42 @@
+﻿<Window x:Class="TaskManagement.ManagamentTask"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Задача" Height="399" Width="316" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Style="{DynamicResource VS2012WindowStyle}" FontFamily="./Styles/#Roboto Condensed" Foreground="{DynamicResource Foreground}" ShowInTaskbar="False">
+    <Grid Background="{DynamicResource BackgroundNormal}">
+        <Label Content="Название задачи:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="{DynamicResource CloseButtonStrokeHighlighted}"/>
+        <Label Content="Время на задачу (мин)." HorizontalAlignment="Left" Margin="8,83,0,0" VerticalAlignment="Top" Foreground="{DynamicResource CloseButtonStrokeHighlighted}"/>
+        <TextBox Name="txName" DataContext="{Binding Path=name}" HorizontalAlignment="Left" Height="30" Margin="10,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" Foreground="{DynamicResource CloseButtonStrokeHighlighted}" Style="{DynamicResource StandardTextBox}"/>
+        <TextBox Name="txTime" Text="0" DataContext="{Binding Path=time}" PreviewTextInput="txTime_PreviewTextInput" KeyUp="txTime_KeyUp" HorizontalAlignment="Left" Height="25" Margin="161,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" GotFocus="txTime_GotFocus" LostFocus="txTime_LostFocus" Style="{DynamicResource StandardTextBox}"/>
+        <Label Content="Время начала:" HorizontalAlignment="Left" Margin="8,120,0,0" VerticalAlignment="Top" Foreground="{DynamicResource CloseButtonStrokeHighlighted}"/>
+        <Label Content="Время Конца:" HorizontalAlignment="Left" Margin="160,120,0,0" VerticalAlignment="Top" Foreground="{DynamicResource CloseButtonStrokeHighlighted}"/>
+        <Label Content="Приоритет:" HorizontalAlignment="Left" Margin="10,239,0,0" VerticalAlignment="Top" Foreground="{DynamicResource CloseButtonStrokeHighlighted}"/>
+        <xctk:TimePicker x:Name="timeStart" DataContext="{Binding timeFrom}" Margin="9,146,172,179" Format="ShortTime" Value="12:00" ValueChanged="timeStart_ValueChanged" Foreground="{DynamicResource Foreground}" />
+        <xctk:TimePicker x:Name="timeEnd" DataContext="{Binding timeTo}" Margin="161,146,20,179" Format="ShortTime" Value="12:00" ValueChanged="timeEnd_ValueChanged" Foreground="{DynamicResource Foreground}" />
+        <ComboBox DataContext="{Binding priority}" HorizontalAlignment="Left" Margin="9,262,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="2" x:Name="cmbPriority" Style="{DynamicResource StandardComboBox}" >
+            <ComboBoxItem Content="Критическая" />
+            <ComboBoxItem Content="Важная" />
+            <ComboBoxItem Content="Стандартная" />
+            <ComboBoxItem Content="Не важная" />
+        </ComboBox>
+        <CheckBox Content="Выполнена" x:Name="cbDone" HorizontalAlignment="Left" Margin="13,290,0,0" VerticalAlignment="Top" Width="85" Foreground="{DynamicResource CloseButtonStrokeHighlighted}"/>
+        <Button Content="Сохранить" Click="btnSaveTask_Click" x:Name="btnSaveTask" HorizontalAlignment="Left" Margin="10,317,0,0" VerticalAlignment="Top" Width="88" Style="{DynamicResource StandardButton}" Height="24"/>
+        <Button Content="Удалить" Click="btnRemoveTask_Click" x:Name="btnRemoveTask" HorizontalAlignment="Left" Margin="193,317,0,0" VerticalAlignment="Top" Width="88" Style="{DynamicResource LowStandardButton}" Height="24" />
+
+        <ComboBox DataContext="{Binding week}"  x:Name="cmbWeek" HorizontalAlignment="Left" Margin="160,208,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" SelectionChanged="cmbWeek_SelectionChanged" Style="{DynamicResource StandardComboBox}" />
+        <Label Content="Неделя задачи:" HorizontalAlignment="Left" Margin="160,184,0,0" VerticalAlignment="Top" Foreground="{DynamicResource CloseButtonStrokeHighlighted}"/>
+        <Label Content="Цель:" HorizontalAlignment="Left" Margin="13,187,0,0" VerticalAlignment="Top" Foreground="{DynamicResource CloseButtonStrokeHighlighted}"/>
+        <ComboBox DataContext="{Binding goal}" HorizontalAlignment="Left" Margin="10,211,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="2" x:Name="cmbGoal" Style="{DynamicResource StandardComboBox}" />
+        <Label x:Name="lblDay" Content="День:" HorizontalAlignment="Left" Margin="160,239,0,0" VerticalAlignment="Top" Foreground="{DynamicResource CloseButtonStrokeHighlighted}"/>
+        <ComboBox DataContext="{Binding day}" HorizontalAlignment="Left" Margin="160,262,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="2" x:Name="cmbDay" Style="{DynamicResource StandardComboBox}" >
+            <ComboBoxItem Content="Понедельник"/>
+            <ComboBoxItem Content="Вторник"/>
+            <ComboBoxItem Content="Среда"/>
+            <ComboBoxItem Content="Четверг"/>
+            <ComboBoxItem Content="Пятница"/>
+            <ComboBoxItem Content="Суббота"/>
+            <ComboBoxItem Content="Воскресенье"/>
+        </ComboBox>
+
+    </Grid>
+</Window>
