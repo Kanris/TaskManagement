@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using TaskManagement.DatabaseHandler;
 
-namespace TaskManagement
+namespace TaskManagement.DataGridHelper
 {
-     static class DataGridHelper
+    public static class DGHelper
     {
         public static void addColorToCell(DataGridCell dgc, string color)
         {
@@ -178,7 +173,7 @@ namespace TaskManagement
             dgTemplateColumn.CellTemplate = dataTemplate;
             dgTemplateColumn.MinWidth = 100;
             dgTemplateColumn.CanUserSort = false;
-           
+
             return dgTemplateColumn;
         }
 

@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using TaskManagement.DatabaseHandler;
+using TaskManagement.DataGridHelper;
 
 namespace TaskManagement
 {
@@ -52,7 +53,7 @@ namespace TaskManagement
                 for (int i = 0; i < 7; ++i)
                 {
                     int timeForDay = db.getTimeForDay(i, weekID, -1);
-                    string dayLength = DataGridHelper.getDayLength(timeForDay);
+                    string dayLength = DGHelper.getDayLength(timeForDay);
                     setDayValue(newRow, i, dayLength);               
                 }
                 
@@ -72,14 +73,14 @@ namespace TaskManagement
 
                 int day = Convert.ToInt32(task[4]);
                 int timeForDay = Convert.ToInt32(task[5]);
-                string minutes = DataGridHelper.getDayLength(timeForDay);
+                string minutes = DGHelper.getDayLength(timeForDay);
 
                 if (task.Count > 5)
                 {
                     if (task[6] != "")
                     {
-                        string timeFrom = DataGridHelper.getShortTime(task[6]);
-                        string timeTo = DataGridHelper.getShortTime(task[7]);
+                        string timeFrom = DGHelper.getShortTime(task[6]);
+                        string timeTo = DGHelper.getShortTime(task[7]);
 
                         minutes += "(" + timeFrom + "-" + timeTo + ")";
 
@@ -153,12 +154,12 @@ namespace TaskManagement
         {
             dgOverview.Items.Clear(); //Очищаем все строки
             addTasksToDG(); //Заполняем информацией
-            DataGridHelper.actualDataGridSize(dgOverview);
+            DGHelper.actualDataGridSize(dgOverview);
 
             dgOverview.UpdateLayout();
             hideUnusedColumn();
-            DataGridHelper.addColorsToGoals(dgOverview, db); //Добавляем цвет целям
-            DataGridHelper.addColorsToTasks(dgOverview); //Добавляем цвет задачам
+            DGHelper.addColorsToGoals(dgOverview, db); //Добавляем цвет целям
+            DGHelper.addColorsToTasks(dgOverview); //Добавляем цвет задачам
             addGlobalSumm();
         }
 

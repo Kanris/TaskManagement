@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using TaskManagement.DatabaseHandler;
+using TaskManagement.DataGridHelper;
 
 namespace TaskManagement
 {
@@ -158,8 +159,8 @@ namespace TaskManagement
             goalColumn.MinWidth = 100;
 
             DataTemplate dataTemplate = FindResource("manageAreaCellTemplate") as DataTemplate;
-            DataGridTemplateColumn unsortedColumn = DataGridHelper.createNewColumn("Поток задач", dataTemplate); //Столбец с задачами которым не присвоена неделя
-            DataGridTemplateColumn completeColumn = DataGridHelper.createNewColumn("Выполненные", dataTemplate); //Столбец с выполнеными задачами
+            DataGridTemplateColumn unsortedColumn = DGHelper.createNewColumn("Поток задач", dataTemplate); //Столбец с задачами которым не присвоена неделя
+            DataGridTemplateColumn completeColumn = DGHelper.createNewColumn("Выполненные", dataTemplate); //Столбец с выполнеными задачами
             
             dgTasks.Columns.Add(goalColumn); //Добавление в dgTask столбца с целями
             dgTasks.Columns.Add(unsortedColumn); //Добавление в dgTask столбца с задачами
@@ -169,7 +170,7 @@ namespace TaskManagement
             //listOfWeeks.Count != 0 //Если в БД были созданы недели
             foreach (String week in listOfWeeks) //создание столбцов с датой этой недели
             {
-                DataGridTemplateColumn weekColumn = DataGridHelper.createNewColumn(week, dataTemplate);
+                DataGridTemplateColumn weekColumn = DGHelper.createNewColumn(week, dataTemplate);
                 dgTasks.Columns.Add(weekColumn); //Добавление столбца в dgTask
             }
 
@@ -262,8 +263,8 @@ namespace TaskManagement
                 }
             }
 
-            DataGridCell dgs = DataGridHelper.GetCell(dgTasks, row, column); //Получаем ячейку dgTask
-            StackPanel mainStackPanel = DataGridHelper.FindVisualChild<StackPanel>(dgs); //Получаем объект в ячейке
+            DataGridCell dgs = DGHelper.GetCell(dgTasks, row, column); //Получаем ячейку dgTask
+            StackPanel mainStackPanel = DGHelper.FindVisualChild<StackPanel>(dgs); //Получаем объект в ячейке
 
             for (int i = 0; i < lsp.Count; ++i)
             {
@@ -276,7 +277,7 @@ namespace TaskManagement
         {
             for (int i = 0; i < dgTasks.Items.Count; ++i)
             {
-                DataGridCell dgs = DataGridHelper.GetCell(dgTasks, i, 0);
+                DataGridCell dgs = DGHelper.GetCell(dgTasks, i, 0);
                 string goalName = (dgs.Content as TextBlock).Text; //Получение значения в первой колонке - "Цели"
                 int goalID = db.getGoalID(goalName); //Индекс цели
 
@@ -331,7 +332,7 @@ namespace TaskManagement
 
         private void updateInformationdgTask()
         {
-            DataGridHelper.addColorsToGoals(dgTasks, db);//цвет целям
+            DGHelper.addColorsToGoals(dgTasks, db);//цвет целям
             addTasksToDG(); //стикеры
             checkWeeks(); //Поиск просроченых недель
         }

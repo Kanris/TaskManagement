@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using TaskManagement.DatabaseHandler;
+using TaskManagement.DataGridHelper;
 
 namespace TaskManagement
 {
@@ -117,7 +118,7 @@ namespace TaskManagement
             string sMessageBoxText = "Вы действительно хотите удалить выбраную неделю? (" + date + ")";
             string sCaption = "Удаление недели!";
 
-            MessageBoxResult result = DataGridHelper.createAskDialog(sMessageBoxText, sCaption); //Диалог с предупреждение об удалении
+            MessageBoxResult result = DGHelper.createAskDialog(sMessageBoxText, sCaption); //Диалог с предупреждение об удалении
 
             if (result == MessageBoxResult.Yes) //Пользователь поддтвердил удаление
             {

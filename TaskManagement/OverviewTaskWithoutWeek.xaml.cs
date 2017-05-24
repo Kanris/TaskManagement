@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using TaskManagement.DatabaseHandler;
+using TaskManagement.DataGridHelper;
 
 namespace TaskManagement
 {
@@ -38,7 +39,7 @@ namespace TaskManagement
                 Item newRow = new Item() { Task = "Сумма", taksID = "-1" };
 
                 int timeForDay = db.getTimeForDay(boolType);
-                newRow.Time = DataGridHelper.getDayLength(timeForDay);
+                newRow.Time = DGHelper.getDayLength(timeForDay);
                 dgOverview.Items.Add(newRow);
             }
         }
@@ -83,14 +84,14 @@ namespace TaskManagement
                 Item newRow = new Item() { taksID = task[0], Goal = task[1], Task = task[2], Priority = task[3] };
 
                 int timeForDay = Convert.ToInt32(task[4]);
-                string minutes = DataGridHelper.getDayLength(timeForDay);
+                string minutes = DGHelper.getDayLength(timeForDay);
 
                 if (task.Count > 4)
                 {
                     if (task[5] != "")
                     {
-                        string timeFrom = DataGridHelper.getShortTime(task[5]);
-                        string timeTo = DataGridHelper.getShortTime(task[6]);
+                        string timeFrom = DGHelper.getShortTime(task[5]);
+                        string timeTo = DGHelper.getShortTime(task[6]);
 
                         minutes += "(" + timeFrom + "-" + timeTo + ")";
                     }
@@ -101,7 +102,7 @@ namespace TaskManagement
                 dgOverview.Items.Add(newRow);
             }
 
-            DataGridHelper.actualDataGridSize(dgOverview);
+            DGHelper.actualDataGridSize(dgOverview);
         }
 
         //Обновление информации в dgOverview
@@ -111,8 +112,8 @@ namespace TaskManagement
             addTasksToDG(); //Заполняем информацией
 
             dgOverview.UpdateLayout();
-            DataGridHelper.addColorsToGoals(dgOverview, db);
-            DataGridHelper.addColorsToTasks(dgOverview); //Добавляем цвет задачам
+            DGHelper.addColorsToGoals(dgOverview, db);
+            DGHelper.addColorsToTasks(dgOverview); //Добавляем цвет задачам
             addGlobalSumm();
         }
 

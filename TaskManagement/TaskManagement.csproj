@@ -73,7 +73,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Item.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -88,7 +87,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DataGridHelper.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -215,6 +213,10 @@
     <ProjectReference Include="..\DBTaskHandler\TaskManagement.DatabaseHandler.csproj">
       <Project>{a764ea8a-5265-4b92-843a-3cb323d59595}</Project>
       <Name>TaskManagement.DatabaseHandler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TaskManagement.DataGridHelper\TaskManagement.DataGridHelper.csproj">
+      <Project>{e06f4c2d-ba89-43bc-baa5-77f771b3fec2}</Project>
+      <Name>TaskManagement.DataGridHelper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

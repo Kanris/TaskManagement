@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using TaskManagement.DatabaseHandler;
+using TaskManagement.DataGridHelper;
 
 namespace TaskManagement
 {
@@ -223,7 +224,7 @@ namespace TaskManagement
             string sMessageBoxText = "Вы действительно хотите удалить задачу?";
             string sCaption = "Удаление цели!";
 
-            MessageBoxResult result = DataGridHelper.createAskDialog(sMessageBoxText, sCaption); //Создание диалого с прежупреждением
+            MessageBoxResult result = DGHelper.createAskDialog(sMessageBoxText, sCaption); //Создание диалого с прежупреждением
 
             if (result == MessageBoxResult.Yes) //Пользователь поддтвердил удаление
             {
