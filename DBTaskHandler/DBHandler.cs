@@ -4,9 +4,9 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.IO;
 
-namespace TaskManagement
+namespace DBTaskHandler
 {
-    class DBHandler
+    public class DBHandler
     {
         SqlConnection dbConnection; //Подключение к БД
         SqlCommand sqlCommand; //Переменная для запросов к БД
@@ -38,7 +38,7 @@ namespace TaskManagement
 
             if (dr.HasRows) //Если в БД есть недели
             {
-                while (dr.Read()) 
+                while (dr.Read())
                 {
                     DateTime week = Convert.ToDateTime(dr[0].ToString()); //Получение даты из БД
                     listOfWeeks.Add(week.ToShortDateString()); //Запись короткой даты в список
@@ -54,7 +54,7 @@ namespace TaskManagement
         public int getWeeksCount()
         {
             dbConnection.Open();
-            
+
             sqlCommand.CommandText = "SELECT COUNT(startDate) FROM week"; //Запрос на получение количества недель в БД
             int result = (int)sqlCommand.ExecuteScalar(); //Получение результата
 
@@ -77,7 +77,7 @@ namespace TaskManagement
 
 
             bool result = sqlCommand.ExecuteScalar() != null ? true : false; //Проверка на то что ИД недели была найдена
-            
+
             dbConnection.Close();
 
             return result;
@@ -88,7 +88,7 @@ namespace TaskManagement
         {
             dbConnection.Open();
             DateTime sd = Convert.ToDateTime(date);
-            
+
             sqlCommand.CommandText = "INSERT INTO Week(startDate) VALUES(@date)";
 
             sqlCommand.Parameters.Clear();
@@ -167,7 +167,7 @@ namespace TaskManagement
             dbConnection.Open();
 
             sqlCommand.CommandText = "SELECT name FROM Goal WHERE name=@Name";
-            
+
             sqlCommand.Parameters.Clear();
             sqlCommand.Parameters.AddWithValue("@Name", goalName);
 
@@ -187,7 +187,7 @@ namespace TaskManagement
             dbConnection.Open();
 
             sqlCommand.CommandText = "INSERT INTO Goal(name, color) VALUES(@name, @color)";
-            
+
             sqlCommand.Parameters.Clear();
             sqlCommand.Parameters.AddWithValue("@name", goalname);
             sqlCommand.Parameters.AddWithValue("@color", color);
@@ -196,7 +196,7 @@ namespace TaskManagement
 
             dbConnection.Close();
         }
-        
+
         //Получение ID по имени цели
         public int getGoalID(string goalName)
         {
@@ -217,7 +217,7 @@ namespace TaskManagement
                     id = Convert.ToInt32(dr[0]);
                 }
             }
-            
+
             dbConnection.Close();
 
             return id;
@@ -229,10 +229,10 @@ namespace TaskManagement
             dbConnection.Open();
 
             sqlCommand.CommandText = "SELECT color FROM goal WHERE name=@name"; //Запрос на получение цвета
-            
+
             sqlCommand.Parameters.Clear();
             sqlCommand.Parameters.AddWithValue("@name", goalName);
-            
+
             string color = (string)sqlCommand.ExecuteScalar();
 
             dbConnection.Close();
@@ -246,12 +246,12 @@ namespace TaskManagement
             dbConnection.Open();
 
             sqlCommand.CommandText = "UPDATE GOAL SET name=@name, color=@color WHERE goalid=@id"; //Запрос на изменение цели
-            
+
             sqlCommand.Parameters.Clear();
             sqlCommand.Parameters.AddWithValue("@name", goalName);
             sqlCommand.Parameters.AddWithValue("@color", color);
             sqlCommand.Parameters.AddWithValue("@id", id);
-            
+
             sqlCommand.ExecuteNonQuery();
 
             dbConnection.Close();
@@ -263,7 +263,7 @@ namespace TaskManagement
             dbConnection.Open();
 
             sqlCommand.CommandText = "DELETE FROM Goal WHERE goalID=@goalID";
-            
+
             sqlCommand.Parameters.Clear();
             sqlCommand.Parameters.AddWithValue("@goalID", goalID);
 
@@ -284,7 +284,7 @@ namespace TaskManagement
 
             if (dr.HasRows) //Если есть цели в БД
             {
-                while (dr.Read()) 
+                while (dr.Read())
                 {
                     //Формируем список, где имя цели - ключ, а данные - цвет
                     string name = dr[0].ToString();
@@ -339,7 +339,7 @@ namespace TaskManagement
             sqlCommand.Parameters.AddWithValue("@Name", name);
             sqlCommand.Parameters.AddWithValue("@Time", time);
 
-            if(timeFrom.HasValue)
+            if (timeFrom.HasValue)
             {
                 DateTime timeFromDT = timeFrom.Value;
                 DateTime timeToDT = timeTo.Value;
@@ -361,7 +361,7 @@ namespace TaskManagement
 
             dbConnection.Close();
         }
-        
+
 
         //Удаление Задачи
         public void removeTask(int taskID)
@@ -449,7 +449,7 @@ namespace TaskManagement
             sqlCommand.CommandText = "SELECT COUNT(taskID) FROM task WHERE weekID = @weekID AND status = @status";
 
             sqlCommand.Parameters.Clear();
-            sqlCommand.Parameters.AddWithValue("@weekID", weekID);      
+            sqlCommand.Parameters.AddWithValue("@weekID", weekID);
             sqlCommand.Parameters.AddWithValue("@status", "false");
 
             SqlDataReader dr = sqlCommand.ExecuteReader();
@@ -475,11 +475,11 @@ namespace TaskManagement
 
             sqlCommand.CommandText = "SELECT COUNT(taskID) FROM task WHERE goalID = @goalID AND weekID = @weekID AND status = @status AND priority = @priority";
 
-            for (int i = 0; i < priorityCount; ++i) 
+            for (int i = 0; i < priorityCount; ++i)
             {
                 sqlCommand.Parameters.Clear();
-                sqlCommand.Parameters.AddWithValue("@goalID", goalID); 
-                sqlCommand.Parameters.AddWithValue("@weekID", weekID);      
+                sqlCommand.Parameters.AddWithValue("@goalID", goalID);
+                sqlCommand.Parameters.AddWithValue("@weekID", weekID);
                 sqlCommand.Parameters.AddWithValue("@status", isComplete);
                 sqlCommand.Parameters.AddWithValue("@priority", i);
 
@@ -557,7 +557,7 @@ namespace TaskManagement
 
             if (dr.HasRows)
             {
-                while(dr.Read())
+                while (dr.Read())
                 {
                     List<string> taskInfo = new List<string>();
                     for (int i = 0; i < dr.FieldCount; ++i)
@@ -580,8 +580,9 @@ namespace TaskManagement
             if (status == "False")
             {
                 sqlCommand.CommandText = "SELECT taskID, Goal.Name, Task.name, priority, time, timeFrom, timeTo FROM TASK INNER JOIN Goal on task.goalID = goal.goalID WHERE weekID is NULL AND status=@status ORDER BY Goal.Name, priority, time ASC";
-            
-            } else
+
+            }
+            else
             {
                 sqlCommand.CommandText = "SELECT taskID, Goal.Name, Task.name, priority, time, timeFrom, timeTo FROM TASK INNER JOIN Goal on task.goalID = goal.goalID WHERE status=@status ORDER BY Goal.Name, priority, time ASC";
             }
