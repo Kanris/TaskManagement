@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
-using DBTaskHandler;
+using TaskManagement.DatabaseHandler;
 
 namespace TaskManagement
 {

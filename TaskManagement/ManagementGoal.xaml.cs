@@ -2,7 +2,7 @@
 using System;
 using System.Windows;
 using System.Windows.Media;
-using DBTaskHandler;
+using TaskManagement.DatabaseHandler;
 
 namespace TaskManagement
 {

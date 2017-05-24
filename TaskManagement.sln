@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagement", "TaskManagement\TaskManagement.csproj", "{FE7B4F1F-BED7-4EE2-8543-BAAE2364B1CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBTaskHandler", "DBTaskHandler\DBTaskHandler.csproj", "{A764EA8A-5265-4B92-843A-3CB323D59595}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagement.DatabaseHandler", "DBTaskHandler\TaskManagement.DatabaseHandler.csproj", "{A764EA8A-5265-4B92-843A-3CB323D59595}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

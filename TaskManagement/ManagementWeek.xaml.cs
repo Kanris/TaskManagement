@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
-using DBTaskHandler;
+using TaskManagement.DatabaseHandler;
 
 namespace TaskManagement
 {

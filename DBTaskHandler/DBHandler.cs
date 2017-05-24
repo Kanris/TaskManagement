@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.IO;
 
-namespace DBTaskHandler
+namespace TaskManagement.DatabaseHandler
 {
     public class DBHandler
     {

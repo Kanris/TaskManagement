@@ -212,9 +212,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DBTaskHandler\DBTaskHandler.csproj">
+    <ProjectReference Include="..\DBTaskHandler\TaskManagement.DatabaseHandler.csproj">
       <Project>{a764ea8a-5265-4b92-843a-3cb323d59595}</Project>
-      <Name>DBTaskHandler</Name>
+      <Name>TaskManagement.DatabaseHandler</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
