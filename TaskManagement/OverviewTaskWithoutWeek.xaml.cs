@@ -32,94 +32,19 @@ namespace TaskManagement
             }
         }
 
-        private void addGlobalSumm()
-        {
-            if (dgOverview.Items.Count > 0)
-            {
-                Item newRow = new Item() { Task = "Сумма", taksID = "-1" };
-
-                int timeForDay = db.getTimeForDay(boolType);
-                newRow.Time = DGHelper.getDayLength(timeForDay);
-                dgOverview.Items.Add(newRow);
-            }
-        }
-
         private void btnAddTask_Click(object sender, RoutedEventArgs e)
         {
-            ManagamentTask taskWindow = new ManagamentTask("Add", string.Empty); //Вывозов окна добавления задачи
-            if (taskWindow.ShowDialog() == true)
-            {
-                updatedgOverview(); //обновляем dgOverview
-            }
+            OverviewTaskWithoutWeekSupport.AddTask(dgOverview, boolType, db);
         }
 
         private void dgOverview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (dgOverview.SelectedItem != null)
-            {
-
-                Item drv = dgOverview.SelectedItem as Item;
-
-                int taskID = Convert.ToInt32(drv.taksID); //id задачи
-
-                if (taskID > -1)
-                {
-                    ManagamentTask managmentWindow = new ManagamentTask("Edit", taskID); //Вывозов окна изменения задачи
-
-                    if (managmentWindow.ShowDialog() == true)
-                    {
-                        updatedgOverview(); //обновляем dgOverview
-                    }
-                }
-            }
-        }
-
-        //Добавление задач в dgOverview
-        private void addTasksToDG()
-        {
-            List<List<string>> listOfTasks = db.getTasks(boolType); ;//Поиск всех задач связаных с этой неделью
-
-            foreach (List<string> task in listOfTasks) //Добавляем информацию об задачах
-            {
-                Item newRow = new Item() { taksID = task[0], Goal = task[1], Task = task[2], Priority = task[3] };
-
-                int timeForDay = Convert.ToInt32(task[4]);
-                string minutes = DGHelper.getDayLength(timeForDay);
-
-                if (task.Count > 4)
-                {
-                    if (task[5] != "")
-                    {
-                        string timeFrom = DGHelper.getShortTime(task[5]);
-                        string timeTo = DGHelper.getShortTime(task[6]);
-
-                        minutes += "(" + timeFrom + "-" + timeTo + ")";
-                    }
-                }
-
-                newRow.Time = minutes;
-
-                dgOverview.Items.Add(newRow);
-            }
-
-            DGHelper.actualDataGridSize(dgOverview);
-        }
-
-        //Обновление информации в dgOverview
-        private void updatedgOverview()
-        {
-            dgOverview.Items.Clear(); //Очищаем все строки
-            addTasksToDG(); //Заполняем информацией
-
-            dgOverview.UpdateLayout();
-            DGHelper.addColorsToGoals(dgOverview, db);
-            DGHelper.addColorsToTasks(dgOverview); //Добавляем цвет задачам
-            addGlobalSumm();
+            OverviewTaskWithoutWeekSupport.EditTask(dgOverview, boolType, db);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            updatedgOverview();
+            OverviewTaskWithoutWeekSupport.updatedgOverview(dgOverview, boolType, db);
         }
     }
 }
