@@ -2,23 +2,27 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.IO;
 
 namespace TaskManagement
 {
     class DBHandler
     {
-        //static string ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         SqlConnection dbConnection; //Подключение к БД
         SqlCommand sqlCommand; //Переменная для запросов к БД
 
         public DBHandler()
         {
-            AppDomain.CurrentDomain.SetData("DataDirectory", AppDomain.CurrentDomain.BaseDirectory);
-            string ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-            dbConnection = new SqlConnection(ConnectionString);
+            if (dbConnection == null)
+            {
+                string pathToDB = Path.GetDirectoryName(Environment.GetCommandLineArgs()[0]) + "\\dbTaskManagement.mdf";
 
-            sqlCommand = new SqlCommand(); //Переменная для запросов к БД
-            sqlCommand.Connection = dbConnection; //Подключение переменной к БД
+                string ConnectionString = String.Format(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={0};Integrated Security=True;Connect Timeout=30", pathToDB);
+                dbConnection = new SqlConnection(ConnectionString);
+
+                sqlCommand = new SqlCommand(); //Переменная для запросов к БД
+                sqlCommand.Connection = dbConnection; //Подключение переменной к БД
+            }
         }
 
         //------------------------ Запросы к dbo.Week
