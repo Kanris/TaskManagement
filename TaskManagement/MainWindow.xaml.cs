@@ -39,7 +39,7 @@ namespace TaskManagement
             updateItemsDataGrid();
         }
 
-        private void showManagementWeek(string operation)
+        private void showManagementWeek(Operation operation)
         {
             ManagementWeek weekWindow = new ManagementWeek(operation);
 
@@ -68,7 +68,7 @@ namespace TaskManagement
         //Добавление недели
         private void btnAddWeek_Click(object sender, RoutedEventArgs e)
         {
-            showManagementWeek("Add");
+            showManagementWeek(Operation.Add);
         }
 
         private void btnEditWeek_Click(object sender, RoutedEventArgs e)
@@ -77,7 +77,7 @@ namespace TaskManagement
 
             if (weeksCount > 0) //Если недели есть в БД
             {
-                showManagementWeek("Edit");
+                showManagementWeek(Operation.Edit);
 
             }
         }
@@ -89,7 +89,7 @@ namespace TaskManagement
 
             if (weeksCount > 0) //Если недели есть в БД
             {
-                showManagementWeek("Remove");
+                showManagementWeek(Operation.Remove);
             }
         }
         #endregion

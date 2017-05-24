@@ -11,13 +11,16 @@ namespace TaskManagement
     /// <summary>
     /// Interaction logic for ManagementWeek.xaml
     /// </summary>
+    /// 
+    public enum Operation { Add, Edit, Remove }
+
     public partial class ManagementWeek : Window
     {
         private DBHandler db = new DBHandler(); //Подключение к БД
         private DateTime? dtSelectedDate; //Выбранная дата
-        private string operation;
+        private Operation operation;
 
-        public ManagementWeek(string operation)
+        public ManagementWeek(Operation operation)
         {
             InitializeComponent();
 
@@ -26,32 +29,26 @@ namespace TaskManagement
         }
 
         //Определение операции и изменение формы, в соответсвие с ней
-        public void detectOperation(string operation)
+        public void detectOperation(Operation operation)
         {
             switch (operation)
             {
-                case "Add": //На добавление
+                case Operation.Add: //На добавление
                     this.Title = "Добавить неделю"; //Изменить заголовок формы
                     cbWeeks.Visibility = System.Windows.Visibility.Collapsed; //Убрать ListBox с формы
                     break;
 
-                case "Edit": //На удаление
+                case Operation.Edit: //На удаление
                     this.Title = "Изменить неделю"; //Изменить заголовок формы
-
                     initCBWeeks();
-
                     btnCreateWeek.Content = "Изменить";
-
                     break;
 
-                case "Remove": //На удаление
+                case Operation.Remove: //На удаление
                     this.Title = "Удалить неделю"; //Изменить заголовок формы
-
                     initCBWeeks();
                     cbWeeks.Margin = new Thickness(35,44,0,0); //Смещение ListBox на уровень с кнопкой
-
                     btnCreateWeek.Content = "Удалить";
-
                     dpWeek.Visibility = System.Windows.Visibility.Collapsed; //Убрать DatePicker с формы
 
                     break;
@@ -61,7 +58,7 @@ namespace TaskManagement
         private void initCBWeeks()
         {
             List<String> listOfWeek = db.getWeeksFromTable(); //Получение списка недель
-            ObservableCollection<string> list = new ObservableCollection<string>(listOfWeek);;
+            ObservableCollection<string> list = new ObservableCollection<string>(listOfWeek);
 
             cbWeeks.ItemsSource = list;
             cbWeeks.SelectedIndex = 0;
@@ -94,7 +91,7 @@ namespace TaskManagement
 
                 if (!db.isWeekExist(date)) //Проверка на то, что недели с выбраной датой не существует
                 {
-                    if (this.operation == "Add") db.addWeek(date); //Добавление недели в БД
+                    if (this.operation == Operation.Add) db.addWeek(date); //Добавление недели в БД
                     else db.updateWeek(cbWeeks.Text, date);
 
                     DialogResult = true;
@@ -131,17 +128,14 @@ namespace TaskManagement
 
         private void btnCreateWeek_Click(object sender, RoutedEventArgs e)
         {
-            if (operation == "Add") //Добавление новой недели
-            {
-                managmentWeek();
-            }
-            else if (operation == "Remove")
+
+            if (operation == Operation.Remove) //Удаление недели
             {
                 removeWeek();
             }
             else
             {
-                managmentWeek();                
+                managmentWeek();
             }
         }
     }
