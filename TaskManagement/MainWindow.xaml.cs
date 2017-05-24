@@ -210,8 +210,8 @@ namespace TaskManagement
         private Image getImage(int priority)
         {
             Image Img = new Image();
-
-            string baseDirectory = System.AppDomain.CurrentDomain.BaseDirectory + @"resources\img\" + priority + ".png"; //путь к картинке
+        
+            string baseDirectory = $"pack://application:,,,/Images/{priority}.png"; //путь к картинке
 
             Uri pathToImages = new Uri(baseDirectory);
             Img.Source = new BitmapImage(pathToImages);
