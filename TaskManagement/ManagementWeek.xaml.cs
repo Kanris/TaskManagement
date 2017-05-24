@@ -1,19 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Collections.ObjectModel;
 using TaskManagement.DatabaseHandler;
-using TaskManagement.DataGridHelper;
 
 namespace TaskManagement
 {
     /// <summary>
     /// Interaction logic for ManagementWeek.xaml
     /// </summary>
-    /// 
-    public enum Operation { Add, Edit, Remove }
-
     public partial class ManagementWeek : Window
     {
         private DBHandler db = new DBHandler(); //Подключение к БД
@@ -36,7 +30,6 @@ namespace TaskManagement
 
         private void btnCreateWeek_Click(object sender, RoutedEventArgs e)
         {
-
             if (operation == Operation.Remove) //Удаление недели
             {
                 ManagementWeekSupport.removeWeek(cbWeeks, this, db);

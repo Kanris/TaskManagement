@@ -8,6 +8,8 @@ using TaskManagement.DataGridHelper;
 
 namespace TaskManagement
 {
+    public enum Operation { Add, Edit, Remove }
+
     static class ManagementWeekSupport
     {
 
