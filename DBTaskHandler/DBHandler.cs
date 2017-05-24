@@ -10,12 +10,14 @@ namespace TaskManagement.DatabaseHandler
     {
         SqlConnection dbConnection; //Подключение к БД
         SqlCommand sqlCommand; //Переменная для запросов к БД
+        const string DB_FILE_NAME = "dbTaskManagement.mdf";
 
         public DBHandler()
         {
             if (dbConnection == null)
             {
-                string pathToDB = Path.GetDirectoryName(Environment.GetCommandLineArgs()[0]) + "\\dbTaskManagement.mdf";
+                string directoryName = Path.GetDirectoryName(Environment.GetCommandLineArgs()[0]);
+                string pathToDB =  $"{directoryName}\\{DB_FILE_NAME}";
 
                 string ConnectionString = String.Format(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={0};Integrated Security=True;Connect Timeout=30", pathToDB);
                 dbConnection = new SqlConnection(ConnectionString);
